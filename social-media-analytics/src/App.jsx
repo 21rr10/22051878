@@ -1,14 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme, CssBaseline, Container } from '@mui/material';
+import Navbar from './components/Navbar';
+import Feed from './components/Feed';
+import Trending from './components/Trending';
+import Users from './components/Users';
+
+// Create a theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="p-4 bg-blue-500 text-white">
-      <h1 className="text-2xl font-bold">Hello, Tailwind CSS!</h1>
-    </div>
-  )
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Navbar />
+        <Container sx={{ py: 4 }}>
+          <Routes>
+            <Route path="/" element={<Feed />} />
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+        </Container>
+      </Router>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
